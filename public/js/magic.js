@@ -1,52 +1,23 @@
 
-// ============================================
-// ELEMENTS
-// ============================================
-
 const heartScene = document.getElementById("heartScene");
 const starScene = document.getElementById("starScene");
-
 const finalMessage = document.getElementById("finalMessage");
-
 const decorations = document.getElementById("decorations");
 
-
-// ============================================
-// ANIMATION TIMING
-// ============================================
-
-const DRAW_DURATION = 6000;
-const PHOTO_DELAY = 6200;
 
 const HEART_DURATION = 12500;
 const TRANSITION_DELAY = 1200;
 const STAR_DURATION = 12500;
+const RESTART_DELAY = 8000;
 
-const RESTART_DELAY = 2000;
-
-
-// ============================================
-// FLOATING DECORATIONS
-// ============================================
 
 const decorationItems = [
-  "🌸",
-  "🌷",
-  "🌺",
-  "🌼",
-  "🌹",
-  "🌻",
-  "🦋",
-  "✨",
-  "💗",
-  "❀",
-  "⭐",
-  "💫",
-  "✦"
+  "🌸", "🌷", "🌺", "🌼", "🌹",
+  "🌻", "🦋", "✨", "💗", "❀",
+  "⭐", "💫", "✦", "💕", "💖",
 ];
 
 function createDecoration() {
-
   const item = document.createElement("span");
 
   item.className = "magic-decoration";
@@ -69,158 +40,98 @@ function createDecoration() {
   setTimeout(() => {
     item.remove();
   }, 17000);
-
 }
 
 
-// ============================================
-// STARTING DECORATIONS
-// ============================================
-
 function startDecorations() {
-
   decorations.innerHTML = "";
 
-  // Start with some flowers and sparkles already visible.
   for (let i = 0; i < 12; i++) {
-
     setTimeout(() => {
       createDecoration();
     }, i * 300);
-
   }
-
 }
 
-
-// ============================================
-// RESET ANIMATION
-// ============================================
-
 function resetScene(scene) {
-
   scene.classList.remove(
     "playing",
     "finished",
     "active"
   );
 
-  // Force browser to reset the animations.
   void scene.offsetWidth;
-
 }
 
-
-// ============================================
-// PLAY HEART
-// ============================================
-
 function playHeart() {
-
   resetScene(heartScene);
-
   resetScene(starScene);
 
   finalMessage.classList.remove("show");
 
   heartScene.style.display = "flex";
-
   starScene.style.display = "none";
 
   requestAnimationFrame(() => {
-
     heartScene.classList.add("playing");
-
   });
-
 }
 
 
-// ============================================
-// PLAY STAR
-// ============================================
-
 function playStar() {
-
   heartScene.classList.add("finished");
 
   starScene.style.display = "flex";
 
-  // Reset the star before showing it.
   resetScene(starScene);
 
   requestAnimationFrame(() => {
-
     starScene.classList.add("playing");
     starScene.classList.add("active");
-
   });
-
 }
-
-
-// ============================================
-// COMPLETE ANIMATION
-// ============================================
 
 function showFinalMessage() {
-
   finalMessage.classList.add("show");
-
 }
 
 
-// ============================================
-// MAIN ANIMATION SEQUENCE
-// ============================================
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-function startMagic() {
+async function startMagic() {
 
-  startDecorations();
+  while (true) {
 
-  playHeart();
+    // Start the decorations and heart.
+    startDecorations();
+    playHeart();
 
-  // Heart finishes, then star starts after a pause.
-  setTimeout(() => {
+    // Wait for the heart animation and transition.
+    await wait(HEART_DURATION + TRANSITION_DELAY);
 
+    // Start the star animation.
     playStar();
-
     startDecorations();
 
-  }, HEART_DURATION + TRANSITION_DELAY);
+    // Wait for the star animation to finish.
+    await wait(STAR_DURATION);
 
-
-  // Show the final birthday message after the star.
-  setTimeout(() => {
-
+    // Display the final birthday message.
     showFinalMessage();
 
-  }, HEART_DURATION + TRANSITION_DELAY + 14000);
+    // IMPORTANT: Keep the final message visible for 8 seconds.
+    await wait(RESTART_DELAY);
 
-
-  // Restart the entire experience.
-  setTimeout(() => {
-
-    startMagic();
-
-  }, HEART_DURATION + TRANSITION_DELAY + STAR_DURATION + RESTART_DELAY);
+    // Only now does the next cycle begin.
+  }
 
 }
 
-
-// ============================================
-// CONTINUOUS FLOATING FLOWERS
-// ============================================
-
 setInterval(() => {
-
   createDecoration();
-
 }, 1100);
 
-
-// ============================================
-// BEGIN
-// ============================================
 
 startMagic();
