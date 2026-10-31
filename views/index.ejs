@@ -1,0 +1,291 @@
+<%- include("partials/header", { data }) %>
+
+<audio id="backgroundMusic" loop>
+  <source src="/media/birthday-song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Magical floating atmosphere -->
+<div class="magic-background" aria-hidden="true">
+  <span class="magic-star">✦</span>
+  <span class="magic-star">✧</span>
+  <span class="magic-star">✦</span>
+  <span class="magic-star">✧</span>
+  <span class="magic-star">✦</span>
+  <span class="magic-heart">♡</span>
+  <span class="magic-heart">♡</span>
+  <span class="magic-heart">♡</span>
+  <span class="magic-butterfly">🦋</span>
+  <span class="magic-butterfly">🦋</span>
+</div>
+
+<section class="hero section" id="home">
+  <div class="hero-content reveal">
+    <div class="princess-crown" aria-hidden="true">
+      👑
+    </div>
+   <p class="eyebrow">A little surprise for you</p>
+
+<h1>Happy Birthday,<br><em><%= data.herName %>.</em></h1>
+
+<div class="fairytale-line">
+  <span>✦</span>
+  Once upon a time, I met my bestie...
+  <span>✦</span>
+</div>
+
+<div class="nickname-pill">
+  <span><%= data.nicknames.her %></span>
+  <b>♡</b>
+  <span><%= data.nicknames.yours %></span>
+</div>
+
+<p class="hero-text"><%= data.heroLine %></p>
+
+    <div class="hero-actions">
+      <a href="#letter" class="btn btn-primary">Open your letter <span>↓</span></a>
+      <a href="/magic" class="btn btn-ghost" id="sparkleButton">
+          Make a little magic ✦
+      </a>
+    </div>
+
+    <div class="scroll-hint">
+      <span class="scroll-line"></span>
+      <span>scroll slowly</span>
+    </div>
+  </div>
+
+  <div class="hero-art" aria-hidden="true">
+    <div class="glow-ring"></div>
+    <div class="birthday-card">
+      <span class="card-small">FOR YOU</span>
+      <span class="card-heart">♡</span>
+      <span class="card-name"><%= data.herName %></span>
+      <span class="card-date"><%= data.birthdayDate %></span>
+    </div>
+    <span class="floating-heart heart-a">♡</span>
+    <span class="floating-heart heart-b">♡</span>
+    <span class="floating-heart heart-c">✦</span>
+  </div>
+</section>
+
+<section class="section intro-section" id="letter">
+  <div class="section-heading reveal">
+    <p class="eyebrow">A few words from me</p>
+    <h2>Because you deserve <em>more than a text.</em></h2>
+  </div>
+
+  <div class="letter-card reveal">
+    <div class="letter-top">
+      <span>Dear <%= data.herName %>,</span>
+      <span>♡</span>
+    </div>
+
+    <div class="letter-body">
+      <p class="lead"><%= data.introMessage %></p>
+
+      <% data.letter.forEach((paragraph) => { %>
+        <p><%= paragraph %></p>
+      <% }) %>
+    </div>
+
+    <div class="letter-signature">
+      <span>With love,</span>
+      <strong><%= data.yourName %> ♡</strong>
+    </div>
+  </div>
+</section>
+
+<section class="bestie-section section">
+
+  <div class="bestie-card reveal">
+
+    <div class="bestie-glow"></div>
+
+    <div class="bestie-crown">👑</div>
+
+    <p class="eyebrow">A little reminder</p>
+
+    <h2>
+      <%= data.bestieMessage.title %>
+    </h2>
+
+    <p class="bestie-subtitle">
+      <%= data.bestieMessage.subtitle %>
+    </p>
+
+    <div class="bestie-divider">
+      ✦　♡　✦
+    </div>
+
+    <p class="bestie-text">
+      <%= data.bestieMessage.text %>
+    </p>
+
+    <div class="bestie-names">
+      <span><%= data.nicknames.her %></span>
+      <b>♡</b>
+      <span><%= data.nicknames.yours %></span>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section memories-section" id="memories">
+  <div class="section-heading reveal">
+    <p class="eyebrow">Little pieces of us</p>
+    <h2>Some memories I would <em>never trade.</em></h2>
+  </div>
+
+  <div class="memory-grid">
+    <% data.memories.forEach((memory, index) => { %>
+      <article
+        class="memory-card reveal"
+        style="--delay: <%= index * 100 %>ms"
+        onclick="window.location.href='/memory/<%= index + 1 %>'"
+        role="link"
+        tabindex="0"
+        onkeydown="if(event.key === 'Enter' || event.key === ' ') window.location.href='/memory/<%= index + 1 %>'"
+      >
+        <div class="memory-icon"><%= memory.icon %></div>
+        <span class="memory-date"><%= memory.date %></span>
+        <h3><%= memory.title %></h3>
+        <p><%= memory.text %></p>
+        <span class="memory-number">0<%= index + 1 %></span>
+        <span class="memory-open">Read this memory →</span>
+      </article>
+    <% }) %>
+  </div>
+</section>
+
+<section class="section gallery-section" id="gallery">
+  <div class="section-heading reveal">
+    <p class="eyebrow">Captured moments</p>
+    <h2>A tiny gallery of <em>us.</em></h2>
+    <p class="section-subtitle">Replace the placeholders with your favorite pictures and videos.</p>
+  </div>
+
+  <div class="gallery-grid">
+    <% data.gallery.forEach((item, index) => { %>
+      <button
+        class="gallery-item reveal <%= item.type === 'video' ? 'gallery-video' : '' %>"
+        data-media="<%= item.src %>"
+        data-type="<%= item.type %>"
+        data-poster="<%= item.poster || '' %>"
+        data-caption="<%= item.caption %>"
+        aria-label="Open <%= item.caption %>"
+      >
+        <% if (item.type === "video") { %>
+          <video muted preload="metadata" poster="<%= item.poster %>">
+            <source src="<%= item.src %>" type="video/mp4">
+          </video>
+          <span class="play-badge">▶</span>
+        <% } else { %>
+          <img src="<%= item.src %>" alt="<%= item.caption %>" loading="lazy"
+               onerror="this.classList.add('missing-media')">
+          <span class="photo-placeholder"></span>
+        <% } %>
+        <span class="gallery-caption"><%= item.caption %></span>
+      </button>
+    <% }) %>
+  </div>
+</section>
+
+<section class="section gift-section" id="gift">
+  <div class="gift-intro reveal">
+    <p class="eyebrow">Your birthday, your choice</p>
+    <h2>So... <em>what do you want?</em></h2>
+    <p>Pick one. No pressure. Just choose what would make you happiest.</p>
+  </div>
+
+  <div class="gift-grid">
+    <% data.gifts.forEach((gift, index) => { %>
+      <button class="gift-card reveal" data-gift-id="<%= gift.id %>" style="--delay: <%= index * 120 %>ms">
+        <span class="gift-emoji"><%= gift.emoji %></span>
+        <span class="gift-number">0<%= index + 1 %></span>
+        <h3><%= gift.title %></h3>
+        <p><%= gift.description %></p>
+        <span class="gift-choose">Choose this <span>→</span></span>
+      </button>
+    <% }) %>
+  </div>
+
+  <div class="gift-result" id="giftResult" hidden>
+    <div class="result-icon">♡</div>
+    <p class="eyebrow">It's official</p>
+    <h3 id="giftResultTitle"></h3>
+    <p id="giftResultMessage"></p>
+    <button class="btn btn-primary" id="surpriseButton">There's one more thing… ✨</button>
+  </div>
+</section>
+
+<section class="final-cta section">
+  <div class="final-card reveal">
+    <div class="confetti-symbols">✦　♡　✦</div>
+    <p class="eyebrow">One last thing</p>
+    <h2>Your actual surprise is waiting.</h2>
+    <p>I saved one final little moment just for you.</p>
+    <a href="/surprise" class="btn btn-primary">Reveal the surprise ✨</a>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+  <div class="lightbox-content" id="lightboxContent"></div>
+  <p class="lightbox-caption" id="lightboxCaption"></p>
+</div>
+
+<div class="petal-container" id="petalContainer"></div>
+
+<!-- =========================================
+     BIRTHDAY GAMES
+========================================== -->
+
+<section class="birthday-games-section" id="birthdayGames">
+
+  <div class="games-decoration">
+    ✨ 🎮 ✨
+  </div>
+
+  <p class="games-eyebrow">
+    ONE MORE LITTLE SURPRISE
+  </p>
+
+  <h2>
+    Ready for a little challenge? 👀
+  </h2>
+
+  <p class="games-description">
+    I made three little games just for you.
+    Think you can beat them all?
+  </p>
+
+  <div class="games-preview">
+
+    <div class="game-preview-item">
+      <span>🧩</span>
+      <strong>Scatter Puzzle</strong>
+      <small>Rebuild your picture</small>
+    </div>
+
+    <div class="game-preview-item">
+      <span>💕</span>
+      <strong>Birthday Quiz</strong>
+      <small>How well do you know me?</small>
+    </div>
+
+    <div class="game-preview-item">
+      <span>🎁</span>
+      <strong>Mystery Gifts</strong>
+      <small>Choose your surprise</small>
+    </div>
+
+  </div>
+
+  <a href="/games" class="birthday-games-button">
+    🎮 Play the Games
+  </a>
+
+</section>
+
+<%- include("partials/footer", { data }) %>

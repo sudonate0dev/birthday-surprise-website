@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title><%= data.memories[memoryIndex].title %> | A Special Memory</title>
+
+  <link rel="stylesheet" href="/css/memory.css">
+</head>
+
+<body>
+
+  <main class="memory-page">
+
+    <% const memory = data.memories[memoryIndex]; %>
+
+    <header class="memory-header">
+      <a href="/" class="back-link">← Back to birthday page</a>
+
+      <span class="memory-label"><%= memory.date %></span>
+
+      <h1><%= memory.title %></h1>
+
+      <div class="memory-heart">♡</div>
+    </header>
+
+    <section class="memory-story">
+
+      <% memory.story.forEach(paragraph => { %>
+        <p><%= paragraph %></p>
+      <% }) %>
+
+    </section>
+
+    <% if (memory.images && memory.images.length > 0) { %>
+
+      <section class="memory-photos">
+
+        <h2>A few moments to remember ✨</h2>
+
+        <div class="photo-grid">
+
+          <% memory.images.forEach(image => { %>
+
+            <div class="memory-photo">
+              <img src="<%= image %>" alt="A special memory">
+            </div>
+
+          <% }) %>
+
+        </div>
+
+      </section>
+
+    <% } %>
+
+    <section class="memory-navigation">
+
+      <% if (memoryIndex > 0) { %>
+        <a href="/memory/<%= memoryIndex %>">
+          ← Previous memory
+        </a>
+      <% } else { %>
+        <span></span>
+      <% } %>
+
+      <% if (memoryIndex < data.memories.length - 1) { %>
+        <a href="/memory/<%= memoryIndex + 2 %>">
+          Next memory →
+        </a>
+      <% } else { %>
+        <a href="/">Back to birthday ❤️</a>
+      <% } %>
+
+    </section>
+
+    <footer class="memory-footer">
+      Made with love, just for you ♡
+    </footer>
+
+  </main>
+
+</body>
+</html>

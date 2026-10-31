@@ -1,0 +1,680 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: white;
+  background: #241526;
+  font-family: Georgia, serif;
+}
+
+.dreamy-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 40%,
+      rgba(255, 174, 202, .28),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 15% 80%,
+      rgba(180, 120, 190, .3),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(255, 180, 210, .15),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      #241526,
+      #55304b,
+      #241526
+    );
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white 80%, transparent),
+    radial-gradient(2px 2px at 70% 20%, #ffe3a7 80%, transparent),
+    radial-gradient(2px 2px at 40% 75%, white 80%, transparent),
+    radial-gradient(2px 2px at 85% 65%, #ffb5d0 80%, transparent),
+    radial-gradient(2px 2px at 10% 80%, white 80%, transparent);
+
+  background-size: 250px 250px;
+
+  animation: starDrift 25s linear infinite;
+}
+
+.magic-page {
+  position: relative;
+  z-index: 2;
+
+  min-height: 100vh;
+  padding: 45px 15px 70px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+.magic-header {
+  margin-bottom: 15px;
+}
+
+.eyebrow {
+  color: #ffd5e2;
+  font: 11px Arial, sans-serif;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  animation: softFade 2s ease both;
+}
+
+.magic-header h1 {
+  margin-top: 16px;
+
+  font-size: clamp(32px, 6vw, 55px);
+
+  color: #ffe5ef;
+
+  text-shadow:
+    0 0 10px rgba(255, 142, 184, .7),
+    0 0 30px rgba(255, 142, 184, .5);
+}
+
+.magic-header h1 span {
+  color: #ffd166;
+}
+
+.subtitle {
+  margin-top: 12px;
+  color: #eecbdc;
+  font-size: 14px;
+}
+
+.art-scene {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  opacity: 1;
+  transform: scale(1);
+
+  transition:
+    opacity 2s ease,
+    transform 2s ease;
+}
+
+.art-caption {
+  color: #ffe1ec;
+
+  font-size: clamp(16px, 3vw, 23px);
+
+  font-style: italic;
+
+  margin: 30px 0 5px;
+
+  text-shadow:
+    0 0 10px #ff9dbc,
+    0 0 20px #ff9dbc;
+}
+
+
+.art-frame {
+  width: min(760px, 96vw);
+
+  position: relative;
+
+  isolation: isolate;
+
+  filter:
+    drop-shadow(0 0 12px rgba(255, 190, 220, .7))
+    drop-shadow(0 0 35px rgba(255, 100, 170, .35));
+}
+
+.art-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+
+.drawing-line {
+  fill: none;
+
+  stroke: #ff2d55;
+  stroke-width: 5;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  stroke-dasharray: 2500;
+  stroke-dashoffset: 2500;
+
+  filter:
+  drop-shadow(0 0 6px #ff2d55)
+  drop-shadow(0 0 16px rgba(255, 45, 85, 0.9))
+  drop-shadow(0 0 30px rgba(255, 80, 110, 0.5));
+}
+
+.heart-scene.playing .heart-line,
+.star-scene.playing .diamond-line  {
+  animation:
+  smoothShapeDraw 6s cubic-bezier(.45, 0, .2, 1) forwards,
+  lineGlow 3s ease-in-out 6s infinite;
+}
+
+@keyframes smoothShapeDraw {
+  from {
+    stroke-dashoffset: 2500;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes lineGlow {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 6px #ff2d55)
+      drop-shadow(0 0 15px rgba(255, 45, 85, 0.8));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 12px #ff2d55)
+      drop-shadow(0 0 28px rgba(255, 45, 85, 1))
+      drop-shadow(0 0 45px rgba(255, 80, 110, 0.6));
+  }
+}
+
+.reveal-photo {
+  opacity: 0;
+
+  transform: scale(.82);
+
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.playing .reveal-photo {
+  animation:
+  smoothPhotoReveal 2.5s cubic-bezier(.2, .7, .2, 1) 6.2s forwards;
+}
+
+@keyframes smoothPhotoReveal {
+  0% {
+    opacity: 0;
+    transform: scale(.82);
+  }
+
+  60% {
+    opacity: .85;
+    transform: scale(.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(.92);
+  }
+}
+
+
+/* =========================================
+   SCENE MESSAGES
+========================================= */
+
+.scene-message {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.playing .scene-message {
+  animation: messageReveal 2s ease 8s forwards;
+}
+
+.scene-message h2 {
+  color: #ffdca1;
+
+  font-size: clamp(21px, 4vw, 30px);
+
+  margin-bottom: 12px;
+
+  text-shadow: 0 0 15px rgba(255, 180, 210, .5);
+}
+
+.scene-message p {
+  color: #ffe3ee;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+@keyframes messageReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================
+   SCENE SWITCHING
+========================================= */
+
+.star-scene {
+  display: none;
+  opacity: 0;
+  transform: scale(.85);
+}
+
+.star-scene.active {
+  display: flex;
+  animation: sceneAppear 2s ease forwards;
+}
+
+.heart-scene.finished {
+  display: none;
+}
+
+@keyframes sceneAppear {
+  from {
+    opacity: 0;
+    transform: scale(.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* =========================================
+   FLOWERS AND DECORATIONS ON SHAPE EDGES
+========================================= */
+
+.edge-decor {
+  position: absolute;
+  inset: 0;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+
+.edge-flower,
+.edge-sparkle,
+.edge-butterfly,
+.edge-ribbon {
+  position: absolute;
+
+  opacity: 0;
+
+  transform: scale(0) rotate(-30deg);
+
+  filter:
+    drop-shadow(0 0 10px rgba(255, 190, 220, .8));
+}
+
+
+/* Large flowers */
+
+.edge-flower {
+  font-size: clamp(32px, 6vw, 62px);
+}
+
+/* Flower positions */
+
+.edge-flower.f1 {
+  top: 12%;
+  left: 7%;
+  --delay: .5s;
+}
+
+.edge-flower.f2 {
+  top: 34%;
+  right: 5%;
+  --delay: 2s;
+}
+
+.edge-flower.f3 {
+  bottom: 14%;
+  left: 9%;
+  --delay: 3.5s;
+}
+
+.edge-flower.f4 {
+  bottom: 12%;
+  right: 9%;
+  --delay: 5s;
+}
+
+.edge-flower.f5 {
+  top: 7%;
+  right: 25%;
+  --delay: 6.5s;
+}
+
+.edge-flower.f6 {
+  top: 48%;
+  left: 4%;
+  --delay: 7.5s;
+}
+
+
+/* Golden sparkles */
+
+.edge-sparkle {
+  color: #ffe6a6;
+
+  font-size: clamp(22px, 4vw, 42px);
+
+  text-shadow:
+    0 0 8px #fff,
+    0 0 18px #ffd166,
+    0 0 30px #ff8eb8;
+}
+
+.edge-sparkle.s1 {
+  top: 20%;
+  left: 25%;
+  --delay: 1s;
+}
+
+.edge-sparkle.s2 {
+  top: 48%;
+  right: 12%;
+  --delay: 2.5s;
+}
+
+.edge-sparkle.s3 {
+  bottom: 25%;
+  left: 22%;
+  --delay: 4s;
+}
+
+.edge-sparkle.s4 {
+  top: 12%;
+  right: 12%;
+  --delay: 5.5s;
+}
+
+.edge-sparkle.s5 {
+  bottom: 12%;
+  right: 30%;
+  --delay: 7s;
+}
+
+
+/* Butterflies */
+
+.edge-butterfly {
+  font-size: clamp(25px, 4vw, 40px);
+}
+
+.edge-butterfly.b1 {
+  top: 42%;
+  left: 2%;
+  --delay: 3s;
+}
+
+.edge-butterfly.b2 {
+  bottom: 28%;
+  right: 3%;
+  --delay: 5.5s;
+}
+
+
+/* Small hearts and ribbons */
+
+.edge-ribbon {
+  color: #ffb5d0;
+  font-size: 42px;
+}
+
+.edge-ribbon.r1 {
+  top: 8%;
+  left: 45%;
+  --delay: 3.5s;
+}
+
+.edge-ribbon.r2 {
+  bottom: 10%;
+  right: 43%;
+  --delay: 6s;
+}
+
+
+/* Gradual appearance */
+
+.playing .edge-flower,
+.playing .edge-sparkle,
+.playing .edge-butterfly,
+.playing .edge-ribbon {
+  animation:
+    decorationBloom 1.8s cubic-bezier(.2, .8, .2, 1) var(--delay) both,
+    decorationGlow 3s ease-in-out calc(var(--delay) + 1.8s) infinite alternate;
+}
+
+@keyframes decorationBloom {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-30deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(1.2) rotate(8deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes decorationGlow {
+  from {
+    filter: drop-shadow(0 0 5px rgba(255, 190, 220, .5));
+  }
+
+  to {
+    filter:
+      drop-shadow(0 0 13px rgba(255, 190, 220, 1))
+      drop-shadow(0 0 22px rgba(255, 209, 102, .6));
+  }
+}
+
+
+/* =========================================
+   FLOATING DECORATIONS
+========================================= */
+
+.decorations {
+  position: fixed;
+  inset: 0;
+
+  z-index: 3;
+
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.magic-decoration {
+  position: absolute;
+  bottom: -50px;
+
+  animation: floatDecoration linear forwards;
+
+  filter:
+    drop-shadow(0 0 8px rgba(255, 190, 220, .8))
+    drop-shadow(0 0 15px rgba(255, 209, 102, .4));
+}
+
+@keyframes floatDecoration {
+  0% {
+    transform: translateY(0) rotate(0);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-115vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+
+/* =========================================
+   FINAL MESSAGE
+========================================= */
+
+.final-message {
+  max-width: 550px;
+
+  margin: 45px auto 20px;
+
+  opacity: 0;
+  transform: translateY(20px);
+
+  transition:
+    opacity 2s ease,
+    transform 2s ease;
+}
+
+.final-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.final-flower {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.final-message h2 {
+  color: #ffdca1;
+  font-size: clamp(24px, 5vw, 32px);
+  margin-bottom: 15px;
+}
+
+.final-message p {
+  line-height: 1.9;
+  color: #ffe3ee;
+}
+
+.final-message span {
+  display: block;
+
+  color: #ffb5d0;
+
+  margin-top: 20px;
+
+  font-style: italic;
+  font-size: 19px;
+}
+
+
+/* =========================================
+   BACK LINK
+========================================= */
+
+.back-link {
+  color: #ffcfdf;
+
+  text-decoration: none;
+
+  margin-top: 30px;
+
+  font: 14px Arial, sans-serif;
+
+  transition: color .3s ease;
+}
+
+.back-link:hover {
+  color: #ffd166;
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 600px) {
+
+  .magic-page {
+    padding: 35px 12px 50px;
+  }
+
+  .art-frame {
+    width: 100%;
+  }
+
+  .art-caption {
+    margin-top: 25px;
+  }
+
+  .edge-flower {
+    font-size: 32px;
+  }
+
+  .edge-sparkle {
+    font-size: 24px;
+  }
+
+  .edge-butterfly {
+    font-size: 23px;
+  }
+
+  .edge-ribbon {
+    font-size: 30px;
+  }
+
+  .scene-message p {
+    padding: 0 15px;
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+}

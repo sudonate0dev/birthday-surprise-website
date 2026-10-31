@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Birthday Games 🎮</title>
+
+  <link rel="stylesheet" href="/css/games.css">
+</head>
+
+<body>
+
+
+  <div class="game-background"></div>
+
+  <div class="floating-decorations" id="floatingDecorations"></div>
+
+
+  <main class="games-page">
+
+    <!-- HEADER -->
+
+    <header class="games-header">
+
+      <div class="game-icon">🎮</div>
+
+      <p class="eyebrow">
+        A little birthday challenge
+      </p>
+
+      <h1>
+        Birthday Games
+        <span>💗</span>
+      </h1>
+
+      <p class="intro">
+        Okay Grace... let's see how good you are at these 😌
+      </p>
+
+    </header>
+
+
+
+    <section class="game-selection" id="gameSelection">
+
+      <div class="game-card puzzle-card"
+           onclick="openGame('puzzleGame')">
+
+        <div class="card-number">01</div>
+
+        <div class="card-icon">
+          🧩
+        </div>
+
+        <h2>
+          Scatter Puzzle
+        </h2>
+
+        <p>
+          Put the pieces together and reveal your picture.
+        </p>
+
+        <button>
+          Play Puzzle →
+        </button>
+
+      </div>
+
+
+      <div class="game-card quiz-card"
+           onclick="openGame('quizGame')">
+
+        <div class="card-number">02</div>
+
+        <div class="card-icon">
+          💕
+        </div>
+
+        <h2>
+          How Well Do You Know Me?
+        </h2>
+
+        <p>
+          Let's see if you really know your favorite person.
+        </p>
+
+        <button>
+          Start Quiz →
+        </button>
+
+      </div>
+
+
+      <div class="game-card gift-card"
+           onclick="openGame('giftGame')">
+
+        <div class="card-number">03</div>
+
+        <div class="card-icon">
+          🎁
+        </div>
+
+        <h2>
+          Mystery Gifts
+        </h2>
+
+        <p>
+          Choose a gift and discover what's waiting inside.
+        </p>
+
+        <button>
+          Choose Gift →
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <section class="game-screen" id="puzzleGame">
+
+      <button class="back-button" onclick="closeGame()">
+        ← Games
+      </button>
+
+      <div class="game-title">
+
+        <span>🧩</span>
+
+        <h2>
+          Scatter Puzzle
+        </h2>
+
+        <p>
+          Rebuild the picture.
+        </p>
+
+      </div>
+
+
+      <div class="puzzle-info">
+
+        <span>
+          Moves:
+          <strong id="moves">
+            0
+          </strong>
+        </span>
+
+        <span>
+          Time:
+          <strong id="puzzleTimer">
+            0
+          </strong>s
+        </span>
+
+      </div>
+
+
+      <div class="puzzle-area">
+
+        <div
+          class="puzzle-board"
+          id="puzzleBoard">
+        </div>
+
+      </div>
+
+
+      <p class="game-instruction">
+        Click two pieces to swap them.
+      </p>
+
+      <button
+        class="restart-game"
+        onclick="startPuzzle()">
+
+        🔄 Shuffle Again
+
+      </button>
+
+
+      <div
+        class="win-message"
+        id="puzzleWin">
+
+        <div class="win-icon">
+          🎉
+        </div>
+
+        <h3>
+          You did it! 💗
+        </h3>
+
+        <p>
+          You put everything back together.
+        </p>
+
+        <button onclick="closeGame()">
+          Back to Games
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <section class="game-screen" id="quizGame">
+
+      <button class="back-button" onclick="closeGame()">
+        ← Games
+      </button>
+
+      <div class="game-title">
+
+        <span>💕</span>
+
+        <h2>
+          How Well Do You Know Us?
+        </h2>
+
+        <p>
+          Let's test your knowledge 😌
+        </p>
+
+      </div>
+
+
+      <div class="quiz-box">
+
+        <div class="quiz-progress">
+
+          Question
+          <span id="questionNumber">
+            1
+          </span>
+          /
+          <span id="totalQuestions">
+            5
+          </span>
+
+        </div>
+
+
+        <h3 id="questionText">
+          Question
+        </h3>
+
+
+        <div
+          class="quiz-options"
+          id="quizOptions">
+        </div>
+
+
+        <div
+          class="quiz-result"
+          id="quizResult">
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         GAME 3 — GIFTS
+    ========================================== -->
+
+    <section class="game-screen" id="giftGame">
+
+      <button class="back-button" onclick="closeGame()">
+        ← Games
+      </button>
+
+
+      <div class="game-title">
+
+        <span>🎁</span>
+
+        <h2>
+          Mystery Gifts
+        </h2>
+
+        <p>
+          Choose one... but choose wisely 👀
+        </p>
+
+      </div>
+
+
+      <div class="gift-container">
+
+        <div
+          class="gift-box"
+          onclick="chooseGift(1)">
+
+          <div class="gift-lid">
+            🎀
+          </div>
+
+          <div class="gift-body">
+            🎁
+          </div>
+
+          <span>
+            Gift 1
+          </span>
+
+        </div>
+
+
+        <div
+          class="gift-box"
+          onclick="chooseGift(2)">
+
+          <div class="gift-lid">
+            🎀
+          </div>
+
+          <div class="gift-body">
+            🎁
+          </div>
+
+          <span>
+            Gift 2
+          </span>
+
+        </div>
+
+
+        <div
+          class="gift-box"
+          onclick="chooseGift(3)">
+
+          <div class="gift-lid">
+            🎀
+          </div>
+
+          <div class="gift-body">
+            🎁
+          </div>
+
+          <span>
+            Gift 3
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="gift-result"
+        id="giftResult">
+
+        <div id="giftResultIcon">
+          🎁
+        </div>
+
+        <h3 id="giftResultTitle">
+          Your gift is waiting...
+        </h3>
+
+        <p id="giftResultText">
+          Pick one of the boxes above.
+        </p>
+
+      </div>
+
+    </section>
+
+<a href="/magic" class="back-magic">
+  ← Back to the magic
+</a>
+
+<script src="/js/games.js"></script>
+
+</main>
+
+</body>
+</html>
+
