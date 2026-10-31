@@ -1,0 +1,14 @@
+{
+  "name": "birthday-surprise",
+  "version": "1.0.0",
+  "description": "A romantic birthday surprise website built with Node.js, Express and EJS.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}

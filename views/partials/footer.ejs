@@ -1,0 +1,25 @@
+  </main>
+
+  <footer class="footer">
+    <div class="footer-heart">♡</div>
+    <p>Made with love by <%= data.yourName %></p>
+    <p class="footer-small">For one very special birthday.</p>
+  </footer>
+
+  <!--
+    ============================================================
+    MUSIC — REPLACE public/media/birthday-music.mp3
+    ============================================================
+  -->
+  <audio id="birthdayMusic" loop preload="none">
+    <source src="/media/birthday-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    window.BIRTHDAY_DATA = <%- JSON.stringify(data) %>;
+  </script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

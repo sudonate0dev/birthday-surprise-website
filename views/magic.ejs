@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>A Little Magic ❤️</title>
+
+  <link rel="stylesheet" href="/css/magic.css">
+</head>
+
+<body>
+
+  <!-- Magical background -->
+  <div class="dreamy-bg"></div>
+  <div class="stars"></div>
+
+  <!-- Floating decorations -->
+  <div class="decorations" id="decorations"></div>
+
+  <main class="magic-page">
+
+    <header class="magic-header">
+      <p class="eyebrow">A little magic, made just for you</p>
+      <h1>For You, Grace <span>♡</span></h1>
+      <p class="subtitle">Because someone as special as you deserves a little magic.</p>
+    </header>
+
+
+    <!-- ===================================
+         FIRST REVEAL: THE HEART
+    ==================================== -->
+
+    <section class="art-scene heart-scene" id="heartScene">
+
+      <div class="art-caption">
+        A heart full of beautiful memories
+      </div>
+
+      <div class="art-frame heart-frame">
+
+        <svg viewBox="0 0 600 560" class="art-svg">
+
+          <defs>
+            <clipPath id="heartClip">
+              <path d="
+                M300 510
+                C260 470 65 325 65 190
+                C65 85 205 35 300 155
+                C395 35 535 85 535 190
+                C535 325 340 470 300 510 Z
+              "/>
+            </clipPath>
+          </defs>
+
+          <!-- First picture -->
+          <image
+            href="/media/photos/grace-23.jpg"
+            x="65"
+            y="35"
+            width="470"
+            height="475"
+            preserveAspectRatio="xMidYMid slice"
+            clip-path="url(#heartClip)"
+            class="reveal-photo"
+          />
+
+          <!-- Heart outline -->
+          <path
+            class="drawing-line heart-line"
+            d="
+              M300 510
+              C260 470 65 325 65 190
+              C65 85 205 35 300 155
+              C395 35 535 85 535 190
+              C535 325 340 470 300 510 Z
+            "
+          />
+
+        </svg>
+
+        <!-- Decorations attached to heart edges -->
+        <div class="edge-decor">
+
+          <span class="edge-flower f1">🌸</span>
+          <span class="edge-flower f2">🌺</span>
+          <span class="edge-flower f3">🌷</span>
+          <span class="edge-flower f4">🌸</span>
+          <span class="edge-flower f5">🌼</span>
+          <span class="edge-flower f6">🌹</span>
+
+          <span class="edge-sparkle s1">✦</span>
+          <span class="edge-sparkle s2">✧</span>
+          <span class="edge-sparkle s3">✨</span>
+          <span class="edge-sparkle s4">✦</span>
+          <span class="edge-sparkle s5">✧</span>
+
+          <span class="edge-butterfly b1">🦋</span>
+          <span class="edge-butterfly b2">🦋</span>
+
+          <span class="edge-ribbon r1">♡</span>
+          <span class="edge-ribbon r2">♡</span>
+
+        </div>
+
+      </div>
+
+      <div class="scene-message">
+        <h2>Beautiful, just like your heart ♡</h2>
+        <p>Some memories deserve to be held close forever.</p>
+      </div>
+
+    </section>
+
+
+
+    
+
+    <section class="art-scene star-scene" id="starScene">
+
+      <div class="art-caption">
+        And someone who shines like a star
+      </div>
+
+      <div class="art-frame star-frame">
+
+        <svg viewBox="0 0 600 600" class="art-svg">
+
+          <defs>
+            <clipPath id="diamondClip">
+                 <polygon points="300,35 565,300 300,565 35,300" />
+            </clipPath>
+          </defs>
+
+          <!-- Second picture -->
+          <image
+            href="/media/photos/grace-11.jpg"
+            x="40"
+            y="35"
+            width="520"
+            height="505"
+            preserveAspectRatio="xMidYMid slice"
+            clip-path="url(#diamondClip)"
+            class="reveal-photo"
+          />
+
+          
+         <!-- Diamond outline -->
+            <polygon
+            class="drawing-line diamond-line"
+            points="300,35 565,300 300,565 35,300"
+            />
+
+        </svg>
+
+        <!-- Decorations attached to star edges -->
+        <div class="edge-decor">
+
+          <span class="edge-flower f1">🌸</span>
+          <span class="edge-flower f2">🌺</span>
+          <span class="edge-flower f3">🌷</span>
+          <span class="edge-flower f4">🌼</span>
+          <span class="edge-flower f5">🌹</span>
+          <span class="edge-flower f6">🌸</span>
+
+          <span class="edge-sparkle s1">✦</span>
+          <span class="edge-sparkle s2">✧</span>
+          <span class="edge-sparkle s3">✨</span>
+          <span class="edge-sparkle s4">✦</span>
+          <span class="edge-sparkle s5">✧</span>
+
+          <span class="edge-butterfly b1">🦋</span>
+          <span class="edge-butterfly b2">🦋</span>
+
+          <span class="edge-ribbon r1">♡</span>
+          <span class="edge-ribbon r2">♡</span>
+
+        </div>
+
+      </div>
+
+      <div class="scene-message">
+        <h2>Keep shining, Grace ✨</h2>
+        <p>The world is a little brighter with you in it.</p>
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================
+         FINAL BIRTHDAY MESSAGE
+    ==================================== -->
+
+    <section class="final-message" id="finalMessage">
+
+      <div class="final-flower">🌸 ✨ 🌷</div>
+
+      <h2>Happy Birthday, Grace! 💗</h2>
+
+      <p>
+        Never forget how special you are.
+        May your life always be filled with beautiful moments,
+        endless laughter and countless reasons to smile.
+      </p>
+
+      <span>With love, Collins ❤️</span>
+
+    </section>
+
+
+    <a href="/" class="back-link">
+      ← Back to your birthday
+    </a>
+
+  </main>
+
+  <script src="/js/magic.js"></script>
+
+</body>
+</html>
